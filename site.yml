@@ -1,0 +1,16 @@
+---
+- name: First play
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: print example
+      debug:
+        var: example
+    - name: Get java version
+      command: java -version
+      register: result_command
+      changed_when: false
+      failed_when: result_command.rc != 0
+    - name: Print java version
+      debug:
+        msg: "{{ result_command.stderr_lines.0 }}"
